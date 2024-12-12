@@ -1,0 +1,9 @@
+mat-toolbar {
+  padding: 0 0.5rem;
+}
+
+@media (min-width: 720px) {
+  mat-toolbar {
+    padding: 0 2.5rem;
+  }
+}

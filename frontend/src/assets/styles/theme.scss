@@ -109,3 +109,16 @@ $atom-challenge-fe-template-theme: mat.define-light-theme((
 
 
 /* You can add global styles to this file, and also import other style files */
+:root{
+  --color-white:#fff;
+  --color-text-primary:#ff6600;
+  --color-text-secundary:rgba(black, 0.87);
+}
+
+@custom-media --mobile (min-width: 320px);
+
+@custom-media --tabletport (min-width: 720px);
+
+@custom-media --tabletland (min-width: 1024px);
+
+@custom-media --desktop (min-width: 1200px);
