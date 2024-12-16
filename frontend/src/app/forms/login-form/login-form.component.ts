@@ -3,14 +3,14 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RoundedCustomButtonComponent } from '../../components/rounded-custom-button/rounded-custom-button.component';
+import { BaseButtonComponent } from '../../components/base-button/base-button.component';
 
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
   imports: [
-    RoundedCustomButtonComponent,
+    BaseButtonComponent,
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
