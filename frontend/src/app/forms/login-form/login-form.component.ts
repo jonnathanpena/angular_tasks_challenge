@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { ValidationService } from '../../services/validation.service';
+import { ErrorMessagesComponent } from '../../components/error-messages/error-messages.component';
 
 
 @Component({
@@ -11,7 +14,9 @@ import { BaseButtonComponent } from '../../components/base-button/base-button.co
   standalone: true,
   imports: [
     BaseButtonComponent,
+    ErrorMessagesComponent,
     MatGridListModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -20,14 +25,17 @@ import { BaseButtonComponent } from '../../components/base-button/base-button.co
   styleUrl: './login-form.component.scss'
 })
 export class LoginFormComponent {
-  buttonDisabled: boolean = true;
+  loginFormControl: FormGroup = new FormGroup({
+    email: new FormControl('', [
+      Validators.required,
+      this.validationService.emailValidate,
+    ]),
+  });
 
-  constructor() {}
+  constructor(private validationService: ValidationService) {}
 
   loginSubmit(event: SubmitEvent) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    this.buttonDisabled = true;
-    this.buttonDisabled = false;
   }
 }

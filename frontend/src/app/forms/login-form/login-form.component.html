@@ -1,5 +1,9 @@
 <div class="atom-form-wrapper">
-  <form class="atom-form" (submit)="loginSubmit($event)">
+  <form
+    class="atom-form"
+    (submit)="loginSubmit($event)"
+    [formGroup]="loginFormControl"
+  >
     <mat-grid-list cols="1">
       <mat-form-field appearance="outline" class="form-field-full-width">
         <mat-label>Email</mat-label>
@@ -7,17 +11,20 @@
           matInput
           placeholder="Email"
           type="email"
+          name="email"
+          formControlName="email"
           required
-        >
+        />
         <mat-icon matSuffix>email</mat-icon>
-      </mat-form-field>
+        <app-error-messages [control]="loginFormControl.get('email')" />
+      </mat-form-field>      
     </mat-grid-list>
     <app-base-button
       type="rounded"
       backgroundColor="primary"
       buttonText="Ingresar"
       [isFullWidth]="true"
-      [isDisabled]="buttonDisabled"
+      [isDisabled]="!loginFormControl.valid"
     />
   </form>
 </div>

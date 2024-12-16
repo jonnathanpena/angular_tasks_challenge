@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ButtonTypeEnum } from '../../interfaces/button-type-enum';
 import { ButtonStylesClasses } from '../../classes/button-styles-classes';
+import { IButtonStyleClasses } from '../../interfaces/button-style-classes';
 
 @Component({
   selector: 'app-base-button',
@@ -25,7 +26,7 @@ export class BaseButtonComponent {
     this.onClick.emit();
   }
 
-  setClasses(): ButtonStylesClasses {
+  setClasses(): IButtonStyleClasses {
     const styleClasses: ButtonStylesClasses = new ButtonStylesClasses();
     
     if(this.isFullWidth) {
@@ -40,6 +41,6 @@ export class BaseButtonComponent {
         break;
     }
 
-    return styleClasses;
+    return styleClasses.build();
   }
 }
