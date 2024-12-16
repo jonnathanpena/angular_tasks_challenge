@@ -110,15 +110,140 @@ $atom-challenge-fe-template-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 :root{
-  --color-white:#fff;
-  --color-text-primary:#ff6600;
-  --color-text-secundary:rgba(black, 0.87);
+  --atom-global-color-primary: #FF6600;
+  --atom-global-color-secondary: #FF8E43;
+  --atom-global-color-text: #000000;
+  --atom-global-color-accent: #FF6600;
+  --atom-global-color-d24cb22: #FFFFFF;
+  --atom-global-color-f1ede97: #F9F9F9;
+  --atom-global-color-4d544dc: #25D366;
+  --atom-global-color-30b110d: #EDF5FF;
+  --atom-global-color-6c24e56: #F2F8FC;
+  --atom-global-color-6d08844: #F6FFF9;
+  --atom-global-color-fe428f6: #FFB788;
+  --atom-global-color-fcc20da: #FFE7D8;
+  --atom-global-color-adbc35e: #D5D5D5;
+  --atom-global-color-4db674c: #F35C5C;
+  --atom--preset--font-size--small: 13px;
+  --atom--preset--font-size--medium: 20px;
+  --atom--preset--font-size--large: 36px;
+  --atom--preset--font-size--x-large: 42px;
+  --atom--preset--spacing--20: 0.44rem;
+  --atom--preset--spacing--30: 0.67rem;
+  --atom--preset--spacing--40: 1rem;
+  --atom--preset--spacing--50: 1.5rem;
+  --atom--preset--spacing--60: 2.25rem;
+  --atom--preset--spacing--70: 3.38rem;
+  --atom--preset--spacing--80: 5.06rem;
+  --atom-global-typography-text-font-weight: 400;
+  --atom-global-typography-accent-font-weight: 500;
+  --atom-global-line-height: 1.7em;
 }
 
-@custom-media --mobile (min-width: 320px);
+/*#region Common Card Styles*/
+// mobile styles
+.card-wrapper {
+  &.login {
+    min-block-size: calc(var(--vh, 1vh)* 80);
+  }
 
-@custom-media --tabletport (min-width: 720px);
+  .atom-card {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    padding: 0;
+    text-decoration: none;
+    transition-duration: .28s;
+    transition-property: box-shadow, opacity;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    box-shadow: none;
+  
+    .atom-card-header {
+      flex: 1 1 auto;
+      letter-spacing: normal;
+      opacity: var(--v-card-text-opacity, 1);
+      padding: 1.25rem;
+      text-transform: none;
+      margin-bottom: 4px;
+      display: block;
+      
+      h4 {
+        font-size: var(--atom--preset--font-size--medium);
+        font-weight: var(--atom-global-typography-text-font-weight);
+        font-weight: var(--atom-global-typography-accent-font-weight);
+        color: var(--atom-global-color-primary);
+        margin: 0.5em 0;
+      }
+  
+      p {
+        color: var(--atom-global-color-text);
+        font-weight: var(--atom-global-typography-text-font-weight);
+        line-height: var(--atom-global-line-height);
+      }
+    }
+  }
 
-@custom-media --tabletland (min-width: 1024px);
+}
 
-@custom-media --desktop (min-width: 1200px);
+// tabletport styles
+@media (min-width: 720px) {
+  .card-wrapper {
+    .atom-card {  
+      box-shadow: var(--mdc-elevated-card-container-elevation);
+
+      .atom-card-header {
+        h4 {
+          font-size: var(--atom--preset--font-size--large);
+        }
+      }
+    }
+  }
+}
+
+// tabletland styles
+@media (min-width: 1024px) {
+}
+
+// desktop styles
+@media (min-width: 1200px) {
+}
+/*#endregion Common Card Styles*/
+
+/*#region Common Form Styles*/
+// mobile styles
+.atom-form-wrapper {
+  .atom-form {
+    margin: 0;
+    padding: 0;
+
+    .form-field-full-width {
+      width: 100%;
+    }
+  }
+}
+
+// tabletport styles
+@media (min-width: 720px) {
+}
+
+// tabletland styles
+@media (min-width: 1024px) {
+}
+
+// desktop styles
+@media (min-width: 1200px) {
+}
+/*#endregion Common Form Styless*/
+
+/*#region Common Rounded Custom Button Styles*/
+// mobile styles
+.atom-rounded-custom-button {
+  border-radius: 47px 47px 47px 47px !important;
+}
+/*#endregion Common Rounded Custom Button*/
+
+/*#region Common Styles*/
+// mobile styles
+.full-width {
+  width: 100%;
+}
+/*#endregion Common Styles*/

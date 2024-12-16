@@ -1,0 +1,11 @@
+<div class="card-wrapper" [ngClass]="extraClassName">
+  <mat-card class="atom-card">
+    <mat-card-header class="atom-card-header">
+      <h4>{{cardTitle}}</h4>
+      <p *ngIf="cardSubtitle">{{cardSubtitle}}</p>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-content></ng-content>
+    </mat-card-content>
+  </mat-card>
+</div>

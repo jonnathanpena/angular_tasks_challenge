@@ -1,0 +1,22 @@
+<div class="atom-form-wrapper">
+  <form class="atom-form" (submit)="loginSubmit($event)">
+    <mat-grid-list cols="1">
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="Email"
+          type="email"
+          required
+        >
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+    </mat-grid-list>
+    <app-rounded-custom-button
+      backgroundColor="primary"
+      buttonText="Ingresar"
+      [isFullWidth]="true"
+      [isDisabled]="buttonDisabled"
+    />
+  </form>
+</div>
