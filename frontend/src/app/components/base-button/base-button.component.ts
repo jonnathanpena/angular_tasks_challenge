@@ -15,7 +15,7 @@ import { IButtonStyleClasses } from '../../interfaces/button-style-classes';
 export class BaseButtonComponent {
   @Input() type: ButtonTypeEnum = 'normal';
   @Input() backgroundColor!: string;
-  @Input() buttonText!: string;
+  @Input({ required: true }) buttonText!: string;
   @Input() isDisabled!: boolean;
   @Input() isFullWidth!: boolean;
   @Output() onClick = new EventEmitter<void>();
