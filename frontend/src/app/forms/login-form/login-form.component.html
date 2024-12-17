@@ -6,8 +6,9 @@
   >
     <mat-grid-list cols="1">
       <mat-form-field appearance="outline" class="form-field-full-width">
-        <mat-label>Email</mat-label>
+        <mat-label i18n="@@capitalize-email-label">Email</mat-label>
         <input
+          i18n-placeholder="@@placeholder-email"
           matInput
           placeholder="Email"
           type="email"
@@ -20,6 +21,7 @@
       </mat-form-field>      
     </mat-grid-list>
     <app-base-button
+      i18n-buttonText="@@login-button-text"
       type="rounded"
       backgroundColor="primary"
       buttonText="Ingresar"

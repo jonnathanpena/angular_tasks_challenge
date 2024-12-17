@@ -5,6 +5,14 @@
   "projects": {
     "atom-challenge-fe-template": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "es",
+        "locales": {
+          "en": {
+            "translation": "src/locale/en.json"
+          }
+        }
+      },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -17,6 +25,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "localize": true,
+            "i18nMissingTranslation": "warning",
             "outputPath": "dist/atom-challenge-fe-template",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -73,7 +83,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "atom-challenge-fe-template:build"
+            "buildTarget": "atom-challenge-fe-template:build",
+            "format": "json",
+            "outputPath": "src/locale"
           }
         },
         "test": {

@@ -1,0 +1,9 @@
+{
+  "locale": "es",
+  "translations": {
+    "atom-logo-alt": "Logo de ATOM Chat",
+    "capitalize-email-label": "Email",
+    "placeholder-email": "Email",
+    "login-button-text": "Ingresar"
+  }
+}
