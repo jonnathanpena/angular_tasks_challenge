@@ -1,25 +1,54 @@
-// import { scriptValidatorFailedCases } from '../utils/__mocks__/no-script-validator.mocks';
+import { FormControl } from '@angular/forms';
+import { scriptValidatorFailedCases, scriptValidatorSuccessCases } from '../utils/__mocks__/no-script-validator.mocks';
 import { NoScriptValidator } from './no-script-validator';
 
 describe('NoScriptValidator', () => {
+  const noScriptValidator = new NoScriptValidator();
   it('should create an instance', () => {
-    expect(new NoScriptValidator()).toBeTruthy();
+    expect(noScriptValidator).toBeTruthy();
   });
 
-  /* describe('When input text has a script value', () => {
-    it.each( scriptValidatorFailedCases )(
-      'should sanitize input correctly for $name field with value "$input"',
-      ({ input, name, expected }) => {
-        const { result } = renderHook(() => useSanitizedInput( '' ));
+  describe('When input text has a script value', () => {
+    it('Should return script error for <script></script> input value', () => {
+      const response = noScriptValidator.validate(
+        new FormControl(scriptValidatorFailedCases[0]),
+      );
+
+      expect(response).toEqual({
+        script: true,
+      });
+    });
+
+    it('Should return script error for <b></b> input value', () => {
+      const response = noScriptValidator.validate(
+        new FormControl(scriptValidatorFailedCases[1]),
+      );
+
+      expect(response).toEqual({
+        script: true,
+      });
+    });
+
+    it('Should return script error for <svg></svg> input value', () => {
+      const response = noScriptValidator.validate(
+        new FormControl(scriptValidatorFailedCases[2]),
+      );
+
+      expect(response).toEqual({
+        script: true,
+      });
+    });
+  });
+
+  describe('When input text is not a script value', () => {
+    scriptValidatorSuccessCases.forEach(( value ) => {
+      it(`Should return null for ${value} value`, () => {
+        const response = noScriptValidator.validate(
+          new FormControl(value),
+        );
   
-        act(() => {
-          result.current.onChange({
-            target: { value: input, name },
-          } as ChangeEvent<HTMLInputElement> );
-        });
-  
-        expect( result.current.value ).toBe( expected );
-      },
-    );
-  });*/
+        expect(response).toEqual(null);
+      });
+    });
+  });
 });
