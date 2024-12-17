@@ -19,8 +19,6 @@ export class ErrorMessagesComponent {
   }
 
   getErrorMessage(errorKey: string) {
-    console.log( 'errorKey', errorKey );
-
     switch (errorKey as InputValidationErrorKeys) {
       case 'required':
         return 'Este campo es requerido';
