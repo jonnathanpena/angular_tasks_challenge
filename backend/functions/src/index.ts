@@ -9,7 +9,7 @@ app.use(cors({origin: true}));
 
 app.get(
   "/api",
-  (req: Request, res: Response): any => res.send("Hola a todo mundo"),
+  (_: Request, res: Response): any => res.send("Hola mundo"),
 );
 
 exports.api = onRequest({
