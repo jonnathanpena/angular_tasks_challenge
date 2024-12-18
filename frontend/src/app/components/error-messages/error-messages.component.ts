@@ -2,6 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { MatError } from '@angular/material/form-field';
+import { $localize } from '@angular/localize/init';
 import { InputValidationErrorKeys } from '../../interfaces/input-validation-error-keys';
 
 @Component({
@@ -21,13 +22,13 @@ export class ErrorMessagesComponent {
   getErrorMessage(errorKey: string) {
     switch (errorKey as InputValidationErrorKeys) {
       case 'required':
-        return 'Este campo es requerido';
+        return $localize`:Retorno campo requerido|Retorno campo requerido@@required-error-message:Este campo es requerido`;
       case 'email':
-        return 'Ingrese un correo electrónico válido';
+        return $localize`:Correo electrónico inválido|Correo electrónico inválido@@email-error-message:Ingrese un correo electrónico válido`;
       case 'script':
-        return 'Etiqueta o script no permitido';
+        return $localize`:Etiqueta o script no permitido|Etiqueta o script no permitido@@non-script-error-message:Etiqueta o script no permitido`;
       default:
-        return 'Error desconocido';
+        return $localize`:Error desconocido|Error desconocido@@unknow-error-message:Error desconocido`;
     }
   }
 }
