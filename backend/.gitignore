@@ -3,6 +3,10 @@ node_modules/
 
 # Build
 dist/
+functions/ui-debug.log
 
 #Environment variables
 .env
+
+#Logs
+functions/firebase-debug.log
