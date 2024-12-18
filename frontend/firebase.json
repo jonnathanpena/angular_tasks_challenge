@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/atom-challenge-fe-template/browser",
+    "public": "dist/atom-challenge-fe-template/browser/es",
     "ignore": [
       "firebase.json",
       "**/.*",
