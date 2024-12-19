@@ -5,7 +5,3 @@ export enum LogLevelsEnum {
   Warn = "warn",
   Fatal = "fatal",
 }
-
-export enum ControllersEnum {
-  User = "user.controller.ts",
-}
