@@ -1,5 +1,6 @@
 import {Router} from "express";
 import {UserController} from "../controllers/user.controller";
+import {validateUserEmail} from "../middleware/validation.middleware";
 
 /**
  * All user routes declarations
@@ -21,7 +22,11 @@ export class UserRoutes {
    * Initialize user routes
    */
   private initializeRoutes(): void {
-    this.router.get("/:email", this.controller.getUserByEmail);
+    this.router.get(
+      "/:email",
+      validateUserEmail,
+      this.controller.getUserByEmail,
+    );
   }
 
   /**
