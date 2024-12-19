@@ -8,6 +8,7 @@ import {log} from "../utils/log.utils";
 import {IUserController} from "../interfaces/user-controller.interface";
 import {UserRepository} from "../dao/user.repository";
 import {ControllersEnum} from "../interfaces/controllers.interface";
+import {emailValidationPattern} from "../utils/input-validation-patterns.utils";
 
 /**
  * Controller for user routes
@@ -41,6 +42,61 @@ export class UserController implements IUserController {
       log(
         ControllersEnum.User,
         "getUserByEmail",
+        error?.message ?? "",
+        LogLevelsEnum.Error,
+      );
+      response(
+        res,
+        StatusCodeEnum.InternalServerError,
+        error?.message ?? "",
+      );
+    }
+  }
+
+  /**
+   * Create an user
+   * @param {Request} req Express request object
+   * @param {Response} res Express response object
+   */
+  async createUser(req: Request, res: Response): Promise<void> {
+    try {
+      const {email} = req.body;
+      const isAnValidEmail = emailValidationPattern(email);
+
+      if (!isAnValidEmail) {
+        response(
+          res,
+          StatusCodeEnum.BadRequest,
+          "Email value is not valid"
+        );
+        return;
+      }
+
+      const userRepository = new UserRepository();
+      const user = await userRepository.findByEmail(email);
+
+      if (user) {
+        response(
+          res,
+          StatusCodeEnum.Conflict,
+          "User already exists"
+        );
+        return;
+      }
+
+      const newUser = await userRepository.create(email);
+
+      response(
+        res,
+        StatusCodeEnum.Created, {
+          id: newUser.id,
+          email: newUser.email,
+        });
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      log(
+        ControllersEnum.User,
+        "createUser",
         error?.message ?? "",
         LogLevelsEnum.Error,
       );

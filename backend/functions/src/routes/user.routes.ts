@@ -27,6 +27,10 @@ export class UserRoutes {
       validateUserEmail,
       this.controller.getUserByEmail,
     );
+    this.router.post(
+      "/",
+      this.controller.createUser,
+    );
   }
 
   /**

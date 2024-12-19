@@ -5,4 +5,5 @@ import {
 
 export interface IUserController {
   getUserByEmail(req: Request, res: Response): Promise<void>;
+  createUser(req: Request, res: Response): Promise<void>;
 }

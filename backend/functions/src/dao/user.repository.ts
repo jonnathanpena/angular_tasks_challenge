@@ -36,4 +36,22 @@ export class UserRepository implements IUserRepository {
 
     return snapshot.values().next().value;
   }
+
+  /**
+   * Create an user by email
+   * @param {string} email
+   * @return {User} User recently created
+   */
+  async create(email: string): Promise<User> {
+    const user = new User(email);
+    const docRef =
+      await this
+        .db
+        .collection("users")
+        .add({...user});
+
+    user.id = docRef.id;
+
+    return user;
+  }
 }

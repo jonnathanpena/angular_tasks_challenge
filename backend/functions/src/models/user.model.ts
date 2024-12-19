@@ -2,6 +2,7 @@
  * User model class
  */
 export class User {
+  id: string;
   email: string;
 
   /**
@@ -9,6 +10,7 @@ export class User {
    * @param {string} email User email param
    */
   constructor(email: string) {
+    this.id = "";
     this.email = email;
   }
 }
