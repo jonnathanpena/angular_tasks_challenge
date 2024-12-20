@@ -1,0 +1,32 @@
+<!-- kanban.component.html -->
+<div class="kanban-board">
+  <div class="kanban-columns" cdkDropListGroup>
+    @for (column of columns; track column.id) {
+      <div class="kanban-column">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ column.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div
+              cdkDropList
+              [cdkDropListData]="column.tasks"
+              (cdkDropListDropped)="drop($event)"
+              class="task-list">
+              @for (task of column.tasks; track task.id) {
+                <mat-card class="task-card" cdkDrag>
+                  <mat-card-header>
+                    <mat-card-title>{{ task.title }}</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>{{ task.description }}</p>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+  </div>
+</div>
