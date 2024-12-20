@@ -44,6 +44,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.localStorageTokenKey);
     this.isAuthenticatedSubject.next(false);
+    this.router.navigate([`/${RoutesEnum.LOGIN}`]);
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -60,11 +61,9 @@ export class AuthService {
   }
 
   protected successManager( response: IAuthResponse) {
-    debugger;
-    localStorage.setItem(this.localStorageTokenKey, response.jwt ?? "");
-    console.log('response', response);
-    this.isAuthenticatedSubject.next(true);
     this.router.navigate([`/${RoutesEnum.TASKS}`]);
+    localStorage.setItem(this.localStorageTokenKey, response.jwt ?? "");
+    this.isAuthenticatedSubject.next(true);
 
     return response;
   };

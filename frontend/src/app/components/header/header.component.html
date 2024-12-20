@@ -1,4 +1,7 @@
 <mat-toolbar>
   <img alt="Logo de ATOM Chat" ngSrc="assets/images/logo-atom-chat.png" width="192.5" height="55" i18n-alt="@@atom-logo-alt" priority />
+  <button mat-icon-button (click)="onClick()" *ngIf="isLoggedIn$ | async">
+    <mat-icon class="mat-18">logout</mat-icon>
+  </button>
 </mat-toolbar>
 

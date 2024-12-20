@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './login-form.component.scss'
 })
 export class LoginFormComponent {
+  isFetching: boolean = false;
   loginFormControl: FormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -44,13 +45,16 @@ export class LoginFormComponent {
   loginSubmit(event: SubmitEvent) {
     event.preventDefault();
     event.stopImmediatePropagation();
+    this.isFetching = true;
     this.authService.login(this.loginFormControl.value.email)
       .pipe(take(1))
       .subscribe({
-        next: (response) => console.log('response', response),
         error: (error) => {
           console.log('error', error);
-        }
+        },
+        complete: () => {
+          this.isFetching = false;
+        },
       });
   }
 }
