@@ -48,7 +48,9 @@ export class UserRepository implements IUserRepository {
       await this
         .db
         .collection("users")
-        .add({...user});
+        .add({
+          email,
+        });
 
     user.id = docRef.id;
 

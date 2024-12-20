@@ -8,5 +8,9 @@ export const getEnvironmentsVars = (): IEnvironmentVars => {
       clientEmail: defineString("FB_CLIENT_EMAIL")?.value() ?? "",
       privateKey: defineString("FB_PRIVATE_KEY")?.value() ?? "",
     },
+    jwt: {
+      secret: defineString("JWT_SECRET")?.value() ?? "",
+      expiresIn: defineString("JWT_EXPIRES_IN")?.value() ?? "",
+    },
   };
 };

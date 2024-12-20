@@ -9,6 +9,7 @@ import {IUserController} from "../interfaces/user-controller.interface";
 import {UserRepository} from "../dao/user.repository";
 import {ControllersEnum} from "../interfaces/controllers.interface";
 import {emailValidationPattern} from "../utils/input-validation-patterns.utils";
+import {JWTService} from "../services/jwt.service";
 
 /**
  * Controller for user routes
@@ -21,6 +22,7 @@ export class UserController implements IUserController {
    */
   async getUserByEmail(req: Request, res: Response): Promise<void> {
     try {
+      const jwtService = new JWTService();
       const {email} = req.params;
       const userRepository = new UserRepository();
       const user = await userRepository.findByEmail(email);
@@ -35,7 +37,7 @@ export class UserController implements IUserController {
       }
 
       response(res, StatusCodeEnum.OK, {
-        email,
+        jwt: jwtService.sign(user),
       });
     // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -60,6 +62,7 @@ export class UserController implements IUserController {
    */
   async createUser(req: Request, res: Response): Promise<void> {
     try {
+      const jwtService = new JWTService();
       const {email} = req.body;
       const isAnValidEmail = emailValidationPattern(email);
 
@@ -87,10 +90,8 @@ export class UserController implements IUserController {
       const newUser = await userRepository.create(email);
 
       response(
-        res,
-        StatusCodeEnum.Created, {
-          id: newUser.id,
-          email: newUser.email,
+        res, StatusCodeEnum.OK, {
+          jwt: jwtService.sign(newUser),
         });
     // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     } catch (error: any) {

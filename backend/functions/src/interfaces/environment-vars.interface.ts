@@ -4,4 +4,8 @@ export interface IEnvironmentVars {
     clientEmail: string;
     privateKey: string;
   };
+  jwt: {
+    secret: string;
+    expiresIn: string;
+  };
 }

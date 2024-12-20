@@ -31,3 +31,56 @@ export const validateUserEmail = (
   }
   next();
 };
+
+/**
+ * Validation body for create a task
+ * @param {Request} req Express request object
+ * @param {Response} res Express response object
+ * @param {NextFunction} next Express nextfunction object
+ */
+export const createTaskValidation = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  const {title, description} = req.body;
+
+  if (!title || !description) {
+    response(
+      res,
+      StatusCodeEnum.BadRequest, {
+        message: "Title and description task are required.",
+      }
+    );
+
+    return;
+  }
+  next();
+};
+
+/**
+ * Validation body for update a task
+ * @param {Request} req Express request object
+ * @param {Response} res Express response object
+ *
+ * @param {NextFunction} next Express nextfunction object
+ */
+export const updateTaskValidation = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  const {title, description, status} = req.body;
+
+  if (!title || !description || !status) {
+    response(
+      res,
+      StatusCodeEnum.BadRequest, {
+        message: "Title, description and status task are required.",
+      }
+    );
+
+    return;
+  }
+  next();
+};
