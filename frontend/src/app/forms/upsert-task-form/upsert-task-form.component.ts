@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
 import { ErrorMessagesComponent } from '../../components/error-messages/error-messages.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -29,8 +29,9 @@ import { ITask } from '../../interfaces/task';
   templateUrl: './upsert-task-form.component.html',
   styleUrl: './upsert-task-form.component.scss'
 })
-export class UpsertTaskFormComponent {
+export class UpsertTaskFormComponent implements OnInit {
   @Input() isEdit: boolean = false;
+  @Input() task: ITask | null = null;
   isFetching: boolean = false;
   upsertForm: FormGroup = new FormGroup({
     title: new FormControl('', [
@@ -55,6 +56,13 @@ export class UpsertTaskFormComponent {
     private dialogRef: MatDialogRef<UpsertDialogComponent>,
     private tasksService: TasksService
   ) {}
+
+  ngOnInit(): void {
+    if (this.task) {
+      debugger;
+      this.upsertForm.patchValue(this.task);
+    }
+  }
 
   upsertSubmit(event: SubmitEvent) {
     event.preventDefault();

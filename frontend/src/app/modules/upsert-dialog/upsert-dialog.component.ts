@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { BaseDialogComponent } from "../../components/base-dialog/base-dialog.component";
 import { UpsertTaskFormComponent } from "../../forms/upsert-task-form/upsert-task-form.component";
 import { FormActionsEnum } from '../../interfaces/form-actions-enum';
+import { ITask } from '../../interfaces/task';
 
 @Component({
   selector: 'app-upsert-dialog',
@@ -12,4 +13,5 @@ import { FormActionsEnum } from '../../interfaces/form-actions-enum';
 })
 export class UpsertDialogComponent {
   @Input() action: FormActionsEnum = FormActionsEnum.CREATE;
+  @Input() task: ITask | null = null;
 }

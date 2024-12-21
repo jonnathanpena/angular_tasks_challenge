@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { IKanbanColumn } from '../../interfaces/kanban-column';
 import { ITask } from '../../interfaces/task';
 import { MatCardModule } from '@angular/material/card';
 import { TasksService } from '../../services/tasks.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { UpsertDialogComponent } from '../../modules/upsert-dialog/upsert-dialog.component';
+import { FormActionsEnum } from '../../interfaces/form-actions-enum';
 
 @Component({
   selector: 'app-kanban',
@@ -18,10 +21,15 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './kanban.component.html',
   styleUrl: './kanban.component.scss'
 })
-export class KanbanComponent implements OnInit {
+export class KanbanComponent implements OnInit, OnDestroy {
+  private destroy$: Subject<void> = new Subject<void>();
   columns$: Observable<IKanbanColumn[]>;
+  readonly dialog = inject(MatDialog);
 
-  constructor(private tasksService: TasksService) {
+  constructor(
+    private tasksService: TasksService,
+
+  ) {
     this.columns$ = this.tasksService.kanbanState();
   }
 
@@ -48,5 +56,27 @@ export class KanbanComponent implements OnInit {
         status: event.container.id,
       } as ITask).subscribe((response) => null);
     }
+  }
+
+  onDelete(task: ITask) {
+    this.tasksService.delete(task).subscribe((response) => null);
+  }
+
+  onUpdate(task: ITask) {
+    debugger;
+    const dialogRef = this.dialog.open(UpsertDialogComponent, {
+      data: {
+        action: FormActionsEnum.UPDATE,
+        matDialogRef: MatDialogRef<UpsertDialogComponent>,
+        task,
+      }
+    });
+
+    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe();
+  };
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.unsubscribe();
   }
 }

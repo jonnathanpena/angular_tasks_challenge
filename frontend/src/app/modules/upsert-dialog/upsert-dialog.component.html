@@ -11,6 +11,6 @@
       <p>Puede modificar su tarea, todos los campos son obligatorios, presione <strong>Guardar</strong> cuando esté seguro de la información proporcionada,
         caso contrario cancele la operación <strong>dando click fuera del diálogo</strong></p>
     }
-    <app-upsert-task-form />
+    <app-upsert-task-form [task]="task" [isEdit]="!!task?.id" />
   </div>
 </app-base-dialog>
