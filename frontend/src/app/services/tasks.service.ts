@@ -53,10 +53,18 @@ export class TasksService {
     );
   }
 
-  put(task: ITask) {
+  put(task: ITask, isInformationUpdated: boolean = false) {
     return this.http.put<ITask>(
       `https://api-p6pm5yym4a-uc.a.run.app/tasks/${task.id}`,
       task
+    )
+    .pipe(
+      tap((response) => {
+        if (isInformationUpdated) {
+          this.updatedInformationTask(response);
+        }
+      }),
+      catchError(this.errorManager),
     );
   }
 
@@ -71,6 +79,37 @@ export class TasksService {
 
   kanbanState(): Observable<IKanbanColumn[]> {
     return this.kanbanTasksSubject.asObservable();
+  }
+
+  protected updatedInformationTask(task: ITask) {
+    const currentState = this.kanbanTasksSubject.value;
+    const backlog = currentState[0].tasks.map(( mapTask ) => (
+      mapTask.id === task.id ? task : mapTask
+    ));
+    const inProgress = currentState[1].tasks.map(( mapTask ) => (
+      mapTask.id === task.id ? task : mapTask
+    ));
+    const done = currentState[2].tasks.map(( mapTask ) => (
+      mapTask.id === task.id ? task : mapTask
+    ));
+
+    this.kanbanTasksSubject.next([
+      {
+        id: TaskStatusEnum.BACKLOG,
+        title: 'Por hacer',
+        tasks: backlog,
+      },
+      {
+        id: TaskStatusEnum.IN_PROGRESS,
+        title: 'En progreso',
+        tasks: inProgress,
+      },
+      {
+        id: TaskStatusEnum.DONE,
+        title: 'Hecho',
+        tasks: done,
+      },
+    ]);
   }
 
   protected deleTask(task: ITask) {

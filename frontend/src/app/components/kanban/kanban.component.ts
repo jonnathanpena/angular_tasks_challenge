@@ -63,14 +63,10 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
   onUpdate(task: ITask) {
-    debugger;
-    const dialogRef = this.dialog.open(UpsertDialogComponent, {
-      data: {
-        action: FormActionsEnum.UPDATE,
-        matDialogRef: MatDialogRef<UpsertDialogComponent>,
-        task,
-      }
-    });
+    const dialogRef = this.dialog.open(UpsertDialogComponent);
+    const dialogInstance = dialogRef.componentInstance as UpsertDialogComponent;
+    dialogInstance.action = FormActionsEnum.UPDATE;
+    dialogInstance.task = task;
 
     dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe();
   };

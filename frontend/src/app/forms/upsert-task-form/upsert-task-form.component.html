@@ -31,7 +31,7 @@
         />
         <app-error-messages [control]="upsertForm.get('description')" />
       </mat-form-field>
-      <mat-form-field appearance="outline" class="form-field-full-width">
+      <mat-form-field appearance="outline" class="form-field-full-width" *ngIf="!isEdit">
         <mat-label i18n="@@capitalize-status-label">Estatus</mat-label>
         <mat-select formControlName="status">
           <mat-option value="backlog">Pendiente</mat-option>

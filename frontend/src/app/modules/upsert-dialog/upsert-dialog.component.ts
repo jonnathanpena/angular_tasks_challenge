@@ -7,11 +7,14 @@ import { ITask } from '../../interfaces/task';
 @Component({
   selector: 'app-upsert-dialog',
   standalone: true,
-  imports: [BaseDialogComponent, UpsertTaskFormComponent],
+  imports: [
+    BaseDialogComponent,
+    UpsertTaskFormComponent,
+  ],
   templateUrl: './upsert-dialog.component.html',
   styleUrl: './upsert-dialog.component.scss'
 })
 export class UpsertDialogComponent {
   @Input() action: FormActionsEnum = FormActionsEnum.CREATE;
-  @Input() task: ITask | null = null;
+  @Input() task!: ITask;
 }

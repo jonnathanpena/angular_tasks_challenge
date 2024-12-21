@@ -12,6 +12,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { UpsertDialogComponent } from '../../modules/upsert-dialog/upsert-dialog.component';
 import { TasksService } from '../../services/tasks.service';
 import { ITask } from '../../interfaces/task';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-upsert-task-form',
@@ -25,6 +26,7 @@ import { ITask } from '../../interfaces/task';
     MatInputModule,
     HttpClientModule,
     MatSelectModule,
+    NgIf,
   ],
   templateUrl: './upsert-task-form.component.html',
   styleUrl: './upsert-task-form.component.scss'
@@ -59,7 +61,6 @@ export class UpsertTaskFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.task) {
-      debugger;
       this.upsertForm.patchValue(this.task);
     }
   }
@@ -78,5 +79,16 @@ export class UpsertTaskFormComponent implements OnInit {
       });
       return;
     }
+
+    this.tasksService.put(
+      {
+        ...this.upsertForm.value,
+        id: this.task?.id
+      } as ITask,
+      true,
+    ).subscribe(() => {
+      this.isFetching = false;
+      this.dialogRef.close();
+    });
   }
 }
