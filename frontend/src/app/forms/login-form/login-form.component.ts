@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,6 +10,8 @@ import { ErrorMessagesComponent } from '../../components/error-messages/error-me
 import { AuthService } from '../../services/auth-service.service';
 import { take } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterDialogComponent } from '../../modules/register-dialog/register-dialog.component';
 
 
 @Component({
@@ -29,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './login-form.component.scss'
 })
 export class LoginFormComponent {
+  readonly dialog = inject(MatDialog);
   isFetching: boolean = false;
   loginFormControl: FormGroup = new FormGroup({
     email: new FormControl('', [
@@ -50,11 +53,31 @@ export class LoginFormComponent {
       .pipe(take(1))
       .subscribe({
         error: (error) => {
-          console.log('error', error);
+          if (error.response === "User not found") {
+            this.openDialog();
+          }
+          this.isFetching = false;
         },
         complete: () => {
           this.isFetching = false;
         },
       });
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(RegisterDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result?: boolean) => {
+      if (result) {
+        this.isFetching = true;
+        this.authService.createUser(this.loginFormControl.value.email)
+          .pipe(take(1))
+          .subscribe({
+            complete: () => {
+              this.isFetching = false;
+            },
+          });
+      }
+    });
   }
 }

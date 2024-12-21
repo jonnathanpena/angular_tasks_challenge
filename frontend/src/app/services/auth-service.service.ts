@@ -36,8 +36,8 @@ export class AuthService {
         email,
       }
     ).pipe(
+      tap(response => this.successManager(response)),
       catchError(this.errorManager),
-      map(this.successManager),
     );
   }
 
@@ -56,7 +56,6 @@ export class AuthService {
   }
 
   protected errorManager({error}: HttpErrorResponse) {
-    debugger;
     return throwError(() => error);
   }
 

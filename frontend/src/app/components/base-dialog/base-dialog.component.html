@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="mat-typography">
+  <ng-content select="[content]" #content></ng-content>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <ng-content select="[actions]" #actions></ng-content>
+</mat-dialog-actions>
