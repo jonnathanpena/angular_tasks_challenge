@@ -4,6 +4,9 @@
     "atom-logo-alt": "Logo de ATOM Chat",
     "capitalize-email-label": "Email",
     "placeholder-email": "Email",
-    "login-button-text": "Ingresar"
+    "login-button-text": "Ingresar",
+    "register-dialog-title1": "Usuario no existe",
+    "register-dialog-subtitle1": "El correo electrónico que proporcionó no se encuentra registrado en Atom TaskSys",
+    "register-dialog-question": "Pero no hay problema con eso, pudiera crearse un usuario con el mismo correo electrónico. ¿Está de acuerd?; de ser correcto presione el botón {$START_TAG_STRONG}Crear usuario{$CLOSE_TAG_STRONG}, caso contrario cancele la operación presionando el botón {$START_TAG_STRONG}Cancelar{$CLOSE_TAG_STRONG}"
   }
 }
