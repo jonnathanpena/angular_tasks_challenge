@@ -37,23 +37,88 @@ export class TasksService {
   get() {
     return this.http.get<ITask[]>('https://api-p6pm5yym4a-uc.a.run.app/tasks')
       .pipe(
-        tap(this.successManager),
+        tap(response => this.successManager(response)),
         catchError(this.errorManager),
       )
+  }
+
+  post(task: ITask) {
+    return this.http.post<ITask>(
+      'https://api-p6pm5yym4a-uc.a.run.app/tasks',
+      task
+    )
+    .pipe(
+      tap((response) => this.successManager([response])),
+      catchError(this.errorManager),
+    );
+  }
+
+  put(task: ITask) {
+    return this.http.put<ITask>(
+      `https://api-p6pm5yym4a-uc.a.run.app/tasks/${task.id}`,
+      task
+    );
+  }
+
+  delete(task: ITask) {
+    return this.http.delete<null>(
+      `https://api-p6pm5yym4a-uc.a.run.app/tasks/${task.id}`
+    ).pipe(
+      tap(() => this.deleTask(task)),
+      catchError(this.errorManager),
+    );
   }
 
   kanbanState(): Observable<IKanbanColumn[]> {
     return this.kanbanTasksSubject.asObservable();
   }
 
-  protected successManager(response: ITask[]) {
-    const currentState = this.kanbanTasksSubject.getValue();
-    
-    currentState[0].tasks = [...currentState[0].tasks].concat( response.filter(task => task.status === TaskStatusEnum.BACKLOG));
-    currentState[0].tasks = [...currentState[1].tasks].concat( response.filter(task => task.status === TaskStatusEnum.IN_PROGRESS));
-    currentState[0].tasks = [...currentState[2].tasks].concat( response.filter(task => task.status === TaskStatusEnum.DONE));
+  protected deleTask(task: ITask) {
+    const currentState = this.kanbanTasksSubject.value;
+    const backlog = [...currentState[0].tasks.filter((filterTask) => filterTask.id !== task.id)];
+    const inProgress = [...currentState[1].tasks.filter((filterTask) => filterTask.id !== task.id)];
+    const done = [...currentState[2].tasks.filter((filterTask) => filterTask.id !== task.id)];
+    this.kanbanTasksSubject.next([
+      {
+        id: TaskStatusEnum.BACKLOG,
+        title: 'Por hacer',
+        tasks: backlog,
+      },
+      {
+        id: TaskStatusEnum.IN_PROGRESS,
+        title: 'En progreso',
+        tasks: inProgress,
+      },
+      {
+        id: TaskStatusEnum.DONE,
+        title: 'Hecho',
+        tasks: done,
+      },
+    ]);
+  }
 
-    this.kanbanTasksSubject.next(currentState);
+  protected successManager(response: ITask[]) {
+    const currentState = this.kanbanTasksSubject.value;
+    const backlog = [...currentState[0].tasks, ...response.filter(task => task.status === TaskStatusEnum.BACKLOG)];
+    const inProgress = [...currentState[1].tasks, ...response.filter(task => task.status === TaskStatusEnum.IN_PROGRESS)];
+    const done = [...currentState[2].tasks, ...response.filter(task => task.status === TaskStatusEnum.DONE)];
+    this.kanbanTasksSubject.next([
+      {
+        id: TaskStatusEnum.BACKLOG,
+        title: 'Por hacer',
+        tasks: backlog,
+      },
+      {
+        id: TaskStatusEnum.IN_PROGRESS,
+        title: 'En progreso',
+        tasks: inProgress,
+      },
+      {
+        id: TaskStatusEnum.DONE,
+        title: 'Hecho',
+        tasks: done,
+      },
+    ]);
   }
 
   protected errorManager(error: HttpErrorResponse) {

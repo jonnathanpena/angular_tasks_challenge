@@ -8,6 +8,7 @@ import {TaskRepository} from "../dao/task.repository";
 import {ICustomRequest} from "../interfaces/custom-request.interface";
 import {StatusCodeEnum} from "../interfaces/status-code-enum.interface";
 import {ITaskController} from "../interfaces/task-controller.interface";
+import {TaskStatusEnum} from "../interfaces/task-status-enum.interface";
 
 /**
  * TaskController class
@@ -49,9 +50,14 @@ export class TaskController implements ITaskController {
   async createTask(req: ICustomRequest, res: Response): Promise<void> {
     try {
       const {user} = req;
-      const {title, description} = req.body;
+      const {title, description, status} = req.body;
       const taskRepository = new TaskRepository();
-      const task = new Task(title, description, user?.email ?? "");
+      const task = new Task(
+        title,
+        description,
+        user?.email ?? "",
+        status ?? TaskStatusEnum.Backlog,
+      );
 
       await taskRepository.create(task);
 

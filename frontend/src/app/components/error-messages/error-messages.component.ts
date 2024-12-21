@@ -27,6 +27,10 @@ export class ErrorMessagesComponent {
         return $localize`:Correo electrónico inválido|Correo electrónico inválido@@email-error-message:Ingrese un correo electrónico válido`;
       case 'script':
         return $localize`:Etiqueta o script no permitido|Etiqueta o script no permitido@@non-script-error-message:Etiqueta o script no permitido`;
+      case 'minlength':
+        return $localize`:Longitud mínima requerida|Longitud mínima requerida@@min-length-error-message:La longitud mínima requerida es ${this.control?.errors?.['minlength'].requiredLength}`;
+      case 'maxlength':
+        return $localize`:Longitud máxima requerida|Longitud máxima requerida@@max-length-error-message:La longitud máxima requerida es ${this.control?.errors?.['maxlength'].requiredLength}`;
       default:
         return $localize`:Error desconocido|Error desconocido@@unknow-error-message:Error desconocido`;
     }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { IKanbanColumn } from '../../interfaces/kanban-column';
-import { TaskStatusEnum } from '../../interfaces/task-status-enum';
 import { ITask } from '../../interfaces/task';
 import { MatCardModule } from '@angular/material/card';
 import { TasksService } from '../../services/tasks.service';
@@ -44,6 +43,10 @@ export class KanbanComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      this.tasksService.put({
+        ...event.container.data[event.currentIndex],
+        status: event.container.id,
+      } as ITask).subscribe((response) => null);
     }
   }
 }

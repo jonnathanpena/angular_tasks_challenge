@@ -1,4 +1,12 @@
 <app-header />
 <div class="main-container">
   <router-outlet />
+  <app-base-button
+    (onClick)="onCreateATask()"
+    buttonText="Nueva Tarea"
+    backgroundColor="primary"
+    type="rounded"
+    class="float-right-bottom"
+    *ngIf="isLoggedIn$ | async"
+  />
 </div>

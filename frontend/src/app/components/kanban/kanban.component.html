@@ -12,6 +12,7 @@
               cdkDropList
               [cdkDropListData]="column.tasks"
               (cdkDropListDropped)="drop($event)"
+              [id]="column.id"
               class="task-list">
               @for (task of column.tasks; track task.id) {
                 <mat-card class="task-card" cdkDrag>

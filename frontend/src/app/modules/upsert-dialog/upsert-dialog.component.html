@@ -1,0 +1,16 @@
+
+<app-base-dialog>
+  <div content>
+    @if (action === 'CREATE') {
+      <h3>Nueva tarea</h3>
+      <p>Puede crear una nueva tarea, todos los campos son obligatorios, presione <strong>Guardar</strong> cuando esté seguro de la información proporcionada,
+        caso contrario cancele la operación <strong>dando click fuera del diálogo</strong></p>
+    }
+    @if (action === 'UPDATE') {
+      <h3>Modificar tarea</h3>
+      <p>Puede modificar su tarea, todos los campos son obligatorios, presione <strong>Guardar</strong> cuando esté seguro de la información proporcionada,
+        caso contrario cancele la operación <strong>dando click fuera del diálogo</strong></p>
+    }
+    <app-upsert-task-form />
+  </div>
+</app-base-dialog>

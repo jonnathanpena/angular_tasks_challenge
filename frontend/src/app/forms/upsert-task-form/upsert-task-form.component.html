@@ -1,0 +1,54 @@
+<div class="atom-form-wrapper">
+  <form
+    class="atom-form"
+    (submit)="upsertSubmit($event)"
+    [formGroup]="upsertForm"
+  >
+    <mat-grid-list cols="1">
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label i18n="@@capitalize-title-label">Título</mat-label>
+        <input
+          i18n-placeholder="@@placeholder-title"
+          matInput
+          placeholder="Título"
+          type="string"
+          name="title"
+          formControlName="title"
+          required
+        />
+        <app-error-messages [control]="upsertForm.get('title')" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label i18n="@@capitalize-description-label">Descripción</mat-label>
+        <input
+          i18n-placeholder="@@placeholder-description"
+          matInput
+          placeholder="Descripción"
+          type="string"
+          name="description"
+          formControlName="description"
+          required
+        />
+        <app-error-messages [control]="upsertForm.get('description')" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label i18n="@@capitalize-status-label">Estatus</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="backlog">Pendiente</mat-option>
+          <mat-option value="in_progress">En progreso</mat-option>
+          <mat-option value="done">Completado</mat-option>
+        </mat-select>
+        <app-error-messages [control]="upsertForm.get('status')" />
+      </mat-form-field>      
+    </mat-grid-list>
+    <div class="pull-right">
+      <app-base-button
+        i18n-buttonText="@@upsert-save-button-text"
+        type="rounded"
+        backgroundColor="primary"
+        buttonText="Guardar"
+        [isDisabled]="!upsertForm.valid || isFetching"
+      />
+    </div>
+  </form>
+</div>

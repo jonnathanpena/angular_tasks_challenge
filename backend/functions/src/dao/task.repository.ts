@@ -31,7 +31,15 @@ export class TaskRepository implements ITaskRepository {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          tasks.push(doc.data() as Task);
+          tasks.push({
+            id: doc.id,
+            title: doc.data().title,
+            description: doc.data().description,
+            owner: doc.data().owner,
+            status: doc.data().status,
+            cratedAt: doc.data().cratedAt,
+            updatedAt: doc.data().updatedAt,
+          } as Task);
         });
       });
 

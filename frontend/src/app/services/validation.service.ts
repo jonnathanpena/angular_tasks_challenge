@@ -19,4 +19,17 @@ export class ValidationService {
     }
     return null;
   }
+
+  stringValidate(control: FormControl): ValidationErrors | null {
+    const strategies: ValidationStrategy[] = [
+      new NoScriptValidator(),
+    ];
+    for (const strategy of strategies) {
+      const errors = strategy.validate(control);
+      if (errors) {
+        return errors;
+      }
+    }
+    return null;
+  }
 }
