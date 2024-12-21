@@ -1,7 +1,7 @@
 <!-- kanban.component.html -->
 <div class="kanban-board">
   <div class="kanban-columns" cdkDropListGroup>
-    @for (column of columns; track column.id) {
+    @for (column of (columns$ | async); track column.id) {
       <div class="kanban-column">
         <mat-card>
           <mat-card-header>

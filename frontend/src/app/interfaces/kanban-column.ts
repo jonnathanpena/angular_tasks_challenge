@@ -1,7 +1,8 @@
 import { ITask } from "./task";
+import { TaskStatusEnum } from "./task-status-enum";
 
-export interface KanbanColumn {
-  id: string;
+export interface IKanbanColumn {
+  id: TaskStatusEnum;
   title: string;
   tasks: ITask[];
 }

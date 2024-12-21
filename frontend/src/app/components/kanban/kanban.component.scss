@@ -5,6 +5,7 @@
   .kanban-columns {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
   }
 
   .kanban-column {
